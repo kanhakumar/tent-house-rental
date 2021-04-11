@@ -1,25 +1,29 @@
 const mongoose = require("mongoose");
 
 var TransactionSchema = new mongoose.Schema({
-  transaction_id: {
-    type: Number,
-    unique: true,
-  },
+  // transaction_id: {
+  //   type: Number,
+  //   unique: true,
+  // },
   transaction_data_time: {
-    required: true,
+    // required: true,
     type: Date,
+    default: new Date().toISOString(),
   },
   customer_id: {
     required: true,
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Customer",
   },
   product_id: {
     required: true,
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
   },
   transaction_type: {
     required: true,
     type: String,
+    enum: ["OUT", "IN"],
   },
   quantity: {
     required: true,

@@ -1,38 +1,53 @@
+// var { mongoose } = require("./db/mongoose");
+const { Collection } = require("mongoose");
 var { Customer } = require("./models/customer");
 var { Product } = require("./models/product");
 
-var Initialization = () => {
-  var Product_1 = new Product({
-    product_id: 1,
-    product_title: "Plastic Chairs",
-    quantity_total: 10000,
-    price: 20,
-  });
+// Product.deleteMany({});
 
-  var Product_2 = new Product({
-    product_id: 2,
-    product_title: "Tiffany Chairs",
-    quantity_total: 5000,
-    price: 40,
-  });
+var CustomerList = [{ name: "kanha" }, { name: "kumar" }];
+var ProductList = [
+  { title: "Plastic Chairs", quantity: 10000, price: 20 },
+  { title: "Tiffany Chairs", quantity: 5000, price: 40 },
+];
 
-  var Customer_1 = new Customer({
-    customer_id: 1,
-    customer_name: "kanha",
+var InitializeCustomer = (CustomerList) => {
+  CustomerList.forEach(async (cust) => {
+    var customer = new Customer({
+      customer_name: `${cust.name}`,
+    });
+    await customer
+      .save()
+      .then((res) => {
+        console.log("Customer created Successfully", res);
+      })
+      .catch((e) => {
+        console.log("Unable to create customer as", e._message);
+      });
   });
-
-  var Customer_2 = new Customer({
-    customer_id: 2,
-    customer_name: "kumar",
-  });
-
-  Product_1.save().then(
-  (e)=>{
-    console.log(e);
-  });
-  Product_2.save();
-  Customer_1.save();
-  Customer_2.save();
 };
 
-module.exports = { Initialization };
+var InitializeProduct = (ProductList) => {
+  ProductList.forEach(async (prod) => {
+    var product = new Product({
+      product_title: prod.title,
+      quantity_total: prod.quantity,
+      price: prod.price,
+    });
+    await product
+      .save()
+      .then((res) => {
+        console.log("Product created Successfully", res);
+      })
+      .catch((e) => {
+        console.log("Unable to create product as", e._message);
+      });
+  });
+};
+
+var Initialization = () => {
+  InitializeCustomer(CustomerList);
+  InitializeProduct(ProductList);
+};
+
+module.exports = { Initialization, InitializeCustomer, InitializeProduct };
