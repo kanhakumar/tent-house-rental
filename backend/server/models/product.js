@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 var ProductSchema = new mongoose.Schema({
-  product_id: {
-    type: Number,
-    unique: true,
-  },
+  // product_id: {
+  //   type: Number,
+  //   unique: true,
+  // },
   product_title: {
     type: String,
     required: true,
@@ -15,6 +15,7 @@ var ProductSchema = new mongoose.Schema({
   },
   quantity_booked: {
     type: Number,
+    default: 0,
   },
   price: {
     type: Number,

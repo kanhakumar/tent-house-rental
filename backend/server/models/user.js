@@ -1,15 +1,16 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 
 var UserSchema = new mongoose.Schema({
-  user_id: {
-    type: Number,
-    unique: true,
-  },
   email: {
     type: String,
-    // match: [/\S+@\S+\.\S+/, "is invalid"],
     required: true,
+    trim: true,
     unique: true,
+    validate: {
+      validator: validator.isEmail,
+      message: "{VALUE} is not a valid email",
+    },
   },
   name: {
     type: String,
@@ -22,6 +23,16 @@ var UserSchema = new mongoose.Schema({
     required: true,
     minlength: 6,
   },
+  tokens: [
+    {
+      access: {
+        type: String,
+      },
+      token: {
+        type: String,
+      },
+    },
+  ],
 });
 
 var User = mongoose.model("User", UserSchema);
