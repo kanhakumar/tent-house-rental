@@ -1,9 +1,9 @@
 const express = require('express');
-const { fetchSummaryReport } = require('../controllers/reportController');
+const { fetchSummaryReport, fetchDetailedReport } = require('../controllers/reportController');
 
 const router = express.Router();
 
 router.get('/summaryReport',fetchSummaryReport);
-// router.get('/detailedReport',);
+router.get('/detailedReport',fetchDetailedReport);
 
 module.exports = router;

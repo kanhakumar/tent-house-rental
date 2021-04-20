@@ -2,16 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 var { mongoose } = require("./db/mongoose");
-// var { User } = require("./models/user");
-var { Customer } = require("./models/customer");
-var { Product } = require("./models/product");
-var { Transaction, MakeTransaction } = require("./models/transaction");
 var routes = require("./routes/index");
-var {
-  Initialization,
-  InitializeProduct,
-  InitializeCustomer,
-} = require("./initialization");
+var { Initialization } = require("./initialization");
 
 var app = express();
 

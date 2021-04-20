@@ -73,6 +73,7 @@ var InitializeProduct = (ProductList) => {
 };
 
 var Initialization = async () => {
+  return ;
   await RemoveTransactionData();
   await RemoveProductData();
   await RemoveCustomerData();

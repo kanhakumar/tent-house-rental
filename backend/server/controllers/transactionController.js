@@ -1,4 +1,5 @@
 const _ = require("lodash");
+const mongoose = require("mongoose");
 
 const { Product } = require("../models/product");
 const { Transaction } = require("../models/transaction");
@@ -53,15 +54,15 @@ module.exports = {
       ]);
       var transaction = await Transaction.findById(body.transaction_id_parent);
       if (transaction) {
+        var reverseTransaction = new Transaction(body);
+        var transactions = await reverseTransaction.save();
         var productReturned = await Product.findByIdAndUpdate(
           transaction.product_id,
           {
-            $dcr: { quantity_booked: transaction.quantity },
+            $inc: { quantity_booked: -transaction.quantity },
           },
           { new: true }
         );
-        var reverseTransaction = new Transaction(body);
-        var transactions = await reverseTransaction.save();
         return res.send({ success: true, productReturned, transactions });
       } else {
         throw "No parent Id found.";

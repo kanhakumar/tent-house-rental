@@ -11,4 +11,21 @@ module.exports = {
       res.send({ success: false, e });
     }
   },
+  fetchDetailedReport: async (req, res) => {
+    try {
+      var report = await Product.aggregate([
+        {
+          $lookup: {
+            from: "transactions",
+            localField: "_id",
+            foreignField: "product_id",
+            as: "report",
+          },
+        },
+      ]);
+      res.send({ success: true, report });
+    } catch (e) {
+      res.send({ success: false, e });
+    }
+  },
 };

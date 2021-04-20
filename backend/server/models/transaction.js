@@ -1,7 +1,4 @@
 const mongoose = require("mongoose");
-const { ObjectId } = require("mongodb");
-
-const { Product } = require("./product");
 
 var TransactionSchema = new mongoose.Schema({
   // transaction_id: {
@@ -33,7 +30,9 @@ var TransactionSchema = new mongoose.Schema({
     type: Number,
   },
   transaction_id_parent: {
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Transaction",
+    unique: true,
   },
 });
 
