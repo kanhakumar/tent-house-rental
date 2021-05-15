@@ -20,4 +20,26 @@ module.exports = {
       return res.send({ success: false, e });
     }
   },
+  editProduct: async (req, res) => {
+    try {
+      var body = _.pick(req.body, [
+        "_id",
+        "product_title",
+        "quantity_total",
+        "price",
+      ]);
+      var product = await Product.findByIdAndUpdate(
+        body._id,
+        {
+          product_title: body.product_title,
+          quantity_total: body.quantity_total,
+          price: body.price,
+        },
+        { new: true }
+      );
+      return res.send({ success: true, product });
+    } catch (e) {
+      return res.send({ success: false, e });
+    }
+  },
 };

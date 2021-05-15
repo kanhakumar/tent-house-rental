@@ -1,12 +1,7 @@
 const mongoose = require("mongoose");
 
 var TransactionSchema = new mongoose.Schema({
-  // transaction_id: {
-  //   type: Number,
-  //   unique: true,
-  // },
   transaction_date_time: {
-    // required: true,
     type: Date,
     default: new Date().toISOString(),
   },
