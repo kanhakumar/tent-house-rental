@@ -52,23 +52,23 @@ const TransactionList = () => {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
+                <TableCell className={classes.header}>Transaction ID</TableCell>
                 <TableCell className={classes.header}>Product ID</TableCell>
-                <TableCell className={classes.header}>Product Name</TableCell>
-                <TableCell className={classes.header}>Total Quantity</TableCell>
-                <TableCell className={classes.header}>Booked Quantity</TableCell>
-                <TableCell className={classes.header}>Price</TableCell>
+                <TableCell className={classes.header}>Customer ID</TableCell>
+                <TableCell className={classes.header}>Transaction Type</TableCell>
+                <TableCell className={classes.header}>Quantity</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {transactions.products.map((product) => (
-                <TableRow key={product._id}>
+              {transactions.transactions.map((transaction) => (
+                <TableRow key={transaction._id}>
                   <TableCell component="th" scope="row">
-                    {product._id}
+                    {transaction._id}
                   </TableCell>
-                  <TableCell>{product.product_title}</TableCell>
-                  <TableCell>{product.quantity_total}</TableCell>
-                  <TableCell>{product.quantity_booked}</TableCell>
-                  <TableCell>{product.price}</TableCell>
+                  <TableCell>{transaction.product_id}</TableCell>
+                  <TableCell>{transaction.customer_id}</TableCell>
+                  <TableCell>{transaction.transaction_type}</TableCell>
+                  <TableCell>{transaction.quantity}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
