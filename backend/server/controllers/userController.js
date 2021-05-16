@@ -1,5 +1,6 @@
 const _ = require("lodash");
 const { User } = require("../models/user");
+const Auth = require("../middlewares/auth");
 
 module.exports = {
   addUser: async (req, res) => {
@@ -18,7 +19,8 @@ module.exports = {
       if (user === null) {
         throw "User not found";
       } else if (user.password === req.body.password) {
-        res.send({ success: true });
+        const token = await Auth.createToken(user.id);
+        res.send({ success: true, user, token });
       } else {
         throw "Wrong Password.";
       }

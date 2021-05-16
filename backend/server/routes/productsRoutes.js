@@ -4,11 +4,12 @@ const {
   addNewProducts,
   editProduct,
 } = require("../controllers/productController");
+const Auth = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.get("/", fetchAllProducts);
-router.post("/newProducts", addNewProducts);
-router.put("/editProduct", editProduct);
+router.get("/", Auth.verifyToken, fetchAllProducts);
+router.post("/newProducts", Auth.verifyToken, addNewProducts);
+router.put("/editProduct", Auth.verifyToken, editProduct);
 
 module.exports = router;
